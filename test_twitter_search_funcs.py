@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 Unit tests for twitter_search_funcs.py
 """
@@ -92,6 +93,22 @@ class TestIt(unittest.TestCase):
         self.assertIsNone(char_before)
         self.assertIsNone(word_before)
         self.assertEqual(char_after, "x")
+        self.assertIsNone(word_after)
+
+    def test_find_gun_emoji(self):
+        # Arrange
+        tweet = "Boom gun emoji 💥🔫"
+        char = "x"
+        from unicode_codes import EMOJI_UNICODE
+        char = EMOJI_UNICODE[':pistol:']
+
+        # Act
+        char_before, word_before, char_after, word_after = fc(tweet, char)
+
+        # Assert
+        self.assertEqual(char_before, "💥")
+        self.assertEqual(word_before, "emoji")
+        self.assertIsNone(char_after)
         self.assertIsNone(word_after)
 
 
